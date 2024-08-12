@@ -42,4 +42,7 @@ end
 
 
 gem 'bcrypt', '~> 3.1.7'
-gem 'paseto', '~> 0.4.1'
+gem 'ruby-paseto'
+# If you need v4.local tokens support, you might also need:
+gem 'rbnacl', '~> 7.1.1'
+
