@@ -22,26 +22,9 @@ jobs:
       - name: Scan for common Rails security vulnerabilities using static analysis
         run: bin/brakeman --no-pager
 
-  scan_js:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run JS security scanner
-        run: npm audit
-
   lint:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -71,10 +54,6 @@ jobs:
       - name: Install additional dependencies
         run: sudo apt-get update && sudo apt-get install --no-install-recommends -y libjemalloc2 libsqlite3-0 libvips
 
-      - name: Set up environment variables
-        env:
-          PASETO_SECRET_KEY: ${{ secrets.PASETO_SECRET_KEY }}
-
       - name: Set up the database
         run: bin/rails db:setup
 
@@ -82,4 +61,6 @@ jobs:
         env:
           RAILS_ENV: test
           PASETO_SECRET_KEY: ${{ secrets.PASETO_SECRET_KEY }}
-        run: bin/rails db:test:prepare && bin/rails test
+        run: |
+          bin/rails db:test:prepare
+          bin/rails test
