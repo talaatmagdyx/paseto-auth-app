@@ -1,5 +1,5 @@
-require 'paseto'
-require 'base64'
+require "paseto"
+require "base64"
 
 module PasetoAuthenticatable
   extend ActiveSupport::Concern
@@ -32,14 +32,14 @@ module PasetoAuthenticatable
       payload = result.claims
 
       # Convert the exp back to a Time object for comparison
-      expiration_time = Time.parse(payload['exp'])
+      expiration_time = Time.parse(payload["exp"])
 
       # Check for expiration
       if expiration_time < Time.now.utc
         raise "Token has expired"
       end
 
-      User.find(payload['user_id'].to_i) # Convert user_id back to an integer if necessary
+      User.find(payload["user_id"].to_i) # Convert user_id back to an integer if necessary
     rescue ActiveRecord::RecordNotFound
       nil
     rescue StandardError => e
@@ -51,10 +51,10 @@ module PasetoAuthenticatable
 
 
   def authenticate_user!
-    token = request.headers['Authorization']
-    return render json: { error: 'Token missing' }, status: :unauthorized unless token
+    token = request.headers["Authorization"]
+    return render json: { error: "Token missing" }, status: :unauthorized unless token
 
     @current_user = decode_paseto_token(token)
-    render json: { error: 'Invalid or expired token' }, status: :unauthorized unless @current_user
+    render json: { error: "Invalid or expired token" }, status: :unauthorized unless @current_user
   end
 end
