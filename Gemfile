@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.2.0"
+gem "rails", "~> 7.2.1"
 # Use sqlite3 as the database for Active Record
 gem "sqlite3", ">= 1.4"
 # Use the Puma web server [https://github.com/puma/puma]
@@ -44,4 +44,4 @@ end
 gem "bcrypt", "~> 3.1.7"
 gem "ruby-paseto"
 # If you need v4.local tokens support, you might also need:
-gem "rbnacl", "~> 7.1.1"
+gem "rbnacl", "~> 7.1.2"
